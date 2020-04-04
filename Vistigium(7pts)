@@ -1,0 +1,58 @@
+import array as a
+import numpy as np
+testcase= int(input())
+mat=[]
+ans=a.array('i',[])
+rowcount=0
+colcount=0
+FLAG=0
+for Case in range(testcase):
+    size= int(input())
+    for i in range(size):           
+        atemp =[]
+        row_inp = input()
+        row_input= row_inp.split(' ')
+        for i in range(len(row_input)):
+            count=row_input.count(row_input[i])
+            if count>1:
+                FLAG=1
+            
+        if FLAG==1:
+            rowcount+=1
+            FLAG=0
+        else:
+            FLAG=0
+        mat.append(row_input)
+        
+    
+    diagsum=0
+    for y in range(size):
+        diagsum = diagsum + int(mat[y][y])
+    rot=np.rot90(mat)
+    countc=0
+    for i in range(size):
+        col_inp=rot[i].tolist()
+        for j in range(size):
+            countc=col_inp.count(col_inp[j])
+            if countc>1:
+                FLAG=1
+            
+        if FLAG==1:
+            colcount+=1
+            FLAG=0
+        else:
+            FLAG=0    
+    ans=np.append(ans,diagsum)
+    ans=np.append(ans,rowcount)
+    ans=np.append(ans,colcount)
+    mat=[]
+    rowcount=0
+    colcount=0
+    diagsum=0    
+    
+z=0
+ind=1
+while ind<=testcase:
+    print('Case #{0}: {1} {2} {3}'.format(ind,ans[z],ans[z+1],ans[z+2]))
+    z+=3
+    ind+=1
